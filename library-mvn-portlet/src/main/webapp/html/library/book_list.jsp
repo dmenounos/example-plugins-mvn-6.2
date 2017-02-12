@@ -1,30 +1,47 @@
-<%@ include file="/html/library/init.jsp" %>
+<%@ include file="/html/init.jsp" %>
 
-<portlet:renderURL var="bookFormURL">
+<%-- We pass up the componentId as a parameter to the urls that will render with ajax. --%>
+<%-- This componentId will have to be passed down as an attribute from the controller. --%>
+
+<%-- Single request direct render url with ajax. --%>
+<portlet:renderURL var="bookListURL" windowState="${windowStateNormal}">
+	<portlet:param name="jspPage" value="<%=LibraryConstants.PAGE_BOOK_LIST%>" />
+	<portlet:param name="componentId" value="${componentId}" />
+</portlet:renderURL>
+
+<%-- Single request direct render url with ajax. --%>
+<portlet:actionURL var="searchBooksURL" name="<%=LibraryConstants.ACTION_SEARCH_BOOKS%>" windowState="${windowStateNormal}">
+	<portlet:param name="jspPage" value="<%=LibraryConstants.PAGE_BOOK_LIST%>" />
+	<portlet:param name="componentId" value="${componentId}" />
+</portlet:actionURL>
+
+<%-- Multi request indirect render url with ajax. --%>
+<portlet:actionURL var="deleteBooksURL" name="<%=LibraryConstants.ACTION_DELETE_BOOKS%>" windowState="${windowStateNormal}">
+	<portlet:param name="redirectURL" value="<%=bookListURL.toString()%>" />
+</portlet:actionURL>
+
+<%-- Multi request indirect render url without ajax. --%>
+<portlet:renderURL var="bookFormURL" windowState="${windowStateNormal}">
 	<portlet:param name="jspPage" value="<%=LibraryConstants.PAGE_BOOK_FORM%>" />
 	<portlet:param name="backURL" value="<%=currentURL.toString()%>" />
 </portlet:renderURL>
 
-<portlet:actionURL var="deleteBooksURL" name="<%=LibraryConstants.ACTION_DELETE_BOOKS%>">
-	<portlet:param name="redirectURL" value="<%=currentURL.toString()%>" />
-</portlet:actionURL>
+<%-- We set the componentId to root element. --%>
 
-<portlet:actionURL var="searchBooksURL" name="<%=LibraryConstants.ACTION_SEARCH_BOOKS%>" />
-
-<div class="book-list">
+<div id="${componentId}" class="book-list">
 
 	<aui:button-row cssClass="action-buttons">
 		<aui:button value="create-book" href="${bookFormURL}" cssClass="create-book-button" />
 		<c:if test="${not empty searchResults}">
 			<aui:button value="delete-books" disabled="true" cssClass="delete-books-button disabled" />
 		</c:if>
-		<aui:form name="searchForm" action="${searchBooksURL}" cssClass="form-inline search-form">
+		<form name="searchForm" action="${searchBooksURL}" method="post" class="search-form">
 			<aui:input label="" placeholder="search-term" name="searchTerm" value="${searchTerm}" />
-			<aui:button type="submit" value="Search" />
-		</aui:form>
+			<aui:button type="submit" value="Search" cssClass="search-form-button" />
+		</form>
 	</aui:button-row>
 
-	<aui:form name="searchResultsForm" action="${deleteBooksURL}">
+	<form name="searchResultsForm" action="${deleteBooksURL}" method="post">
 		<aui:input name="bookIds" type="hidden" />
 
 		<liferay-ui:search-container delta="50" iteratorURL="${currentURL}" 
@@ -64,14 +81,16 @@
 
 			<liferay-ui:search-iterator searchContainer="<%=searchContainer%>" />
 		</liferay-ui:search-container>
-	</aui:form>
-</div>
+	</form>
 
-<script>
-$(function() {
-	bookList = new BookList({
-		ns: '${ns}',
-		'confirm-delete-selected-books' : '<%=UnicodeLanguageUtil.get(pageContext, "confirm-delete-selected-books")%>'
+	<script>
+	$(function() {
+		bookList = new BookList({
+			ns: '${ns}',
+			componentId: '${componentId}',
+			'confirm-delete-selected-books' : '<%=UnicodeLanguageUtil.get(pageContext, "confirm-delete-selected-books")%>'
+		});
 	});
-});
-</script>
+	</script>
+
+</div>

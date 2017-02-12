@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 import com.slayer.model.LMSBook;
+import com.slayer.model.impl.LMSBookImpl;
 import com.slayer.service.LMSBookLocalServiceUtil;
 
 public class LibraryPortlet extends MVCPortlet {
@@ -35,12 +36,18 @@ public class LibraryPortlet extends MVCPortlet {
 
 		String jspPage = ParamUtil.getString(request, "jspPage");
 
+		String componentId = ParamUtil.getString(request, LibraryConstants.COMPONENT_ID_PATTR);
+
+		if (StringUtils.isNotEmpty(componentId)) {
+			request.setAttribute(LibraryConstants.COMPONENT_ID_PATTR, componentId);
+		}
+
 		if (StringUtils.isEmpty(jspPage) || 
 			jspPage.equals(LibraryConstants.PAGE_DEFAULT) || 
 			jspPage.equals(LibraryConstants.PAGE_BOOK_LIST)) {
 
 			try {
-				String searchTerm = ParamUtil.getString(request, LibraryConstants.SEARCH_TERM_PARAM);
+				String searchTerm = ParamUtil.getString(request, LibraryConstants.SEARCH_TERM_PATTR);
 
 				List<LMSBook> lmsBooks = null;
 
@@ -69,11 +76,52 @@ public class LibraryPortlet extends MVCPortlet {
 					Collections.reverse(books);
 				}
 
-				request.setAttribute(LibraryConstants.SEARCH_TERM_PARAM, searchTerm);
+				request.setAttribute(LibraryConstants.SEARCH_TERM_PATTR, searchTerm);
 				request.setAttribute(LibraryConstants.SEARCH_RESULTS_ATTR, books);
 				request.setAttribute(LibraryConstants.SEARCH_RESULTS_TOTAL_ATTR, books.size());
 				request.setAttribute(LibraryConstants.ORDER_BY_COL_PATTR, orderByCol);
 				request.setAttribute(LibraryConstants.ORDER_BY_TYPE_PATTR, orderByType);
+			}
+			catch (SystemException e) {
+				throw new RuntimeException(e);
+			}
+		}
+
+		if (jspPage.equals(LibraryConstants.PAGE_BOOK_VIEW)) {
+
+			try {
+				long bookId = ParamUtil.getLong(request, "bookId");
+
+				LMSBook book = null;
+
+				if (bookId > 0L) {
+					book = LMSBookLocalServiceUtil.fetchLMSBook(bookId);
+				}
+
+				request.setAttribute(LibraryConstants.BOOK_ATTR, book);
+			}
+			catch (SystemException e) {
+				throw new RuntimeException(e);
+			}
+		}
+
+		if (jspPage.equals(LibraryConstants.PAGE_BOOK_FORM)) {
+
+			try {
+				long bookId = ParamUtil.getLong(request, "bookId");
+
+				LMSBook book = null;
+
+				if (bookId > 0L) {
+					// Modify mode
+					book = LMSBookLocalServiceUtil.fetchLMSBook(bookId);
+				}
+				else {
+					// Create mode
+					book = new LMSBookImpl();
+				}
+
+				request.setAttribute(LibraryConstants.BOOK_ATTR, book);
 			}
 			catch (SystemException e) {
 				throw new RuntimeException(e);

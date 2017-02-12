@@ -10,13 +10,19 @@
 <%@ page import="java.util.List" %>
 <%@ page import="javax.portlet.PortletURL" %>
 <%@ page import="javax.portlet.ActionRequest" %>
+<%@ page import="javax.portlet.WindowState" %>
 
+<%@ page import="com.liferay.portal.kernel.dao.search.ResultRow" %>
 <%@ page import="com.liferay.portal.kernel.dao.search.RowChecker" %>
 <%@ page import="com.liferay.portal.kernel.language.UnicodeLanguageUtil" %>
 <%@ page import="com.liferay.portal.kernel.portlet.LiferayWindowState" %>
 <%@ page import="com.liferay.portal.kernel.util.ListUtil" %>
 <%@ page import="com.liferay.portal.kernel.util.ParamUtil" %>
 <%@ page import="com.liferay.portal.kernel.util.Validator" %>
+<%@ page import="com.liferay.portal.kernel.util.WebKeys" %>
+
+<%@ page import="com.library.LibraryConstants" %>
+<%@ page import="com.slayer.model.LMSBook" %>
 
 <portlet:defineObjects />
 
@@ -24,6 +30,9 @@
 
 <c:set var="ns"><portlet:namespace /></c:set>
 
+<c:set var="windowStateNormal" value="<%=WindowState.NORMAL.toString()%>" />
+
 <%
 PortletURL currentURL = renderResponse.createRenderURL();
+currentURL.setWindowState(WindowState.NORMAL);
 %>

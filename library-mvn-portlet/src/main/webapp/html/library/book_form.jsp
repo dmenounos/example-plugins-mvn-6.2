@@ -1,39 +1,22 @@
-<%@ include file="/html/library/init.jsp" %>
+<%@ include file="/html/init.jsp" %>
 
 <h1>Add / Edit Form</h1>
 
-<%
-LMSBook lmsBook = null;
-long bookId = ParamUtil.getLong(request, "bookId");
-if (bookId > 0L) {
-	// Modify mode
-	lmsBook = LMSBookLocalServiceUtil.fetchLMSBook(bookId);
-} else {
-	// Create mode
-	lmsBook = new LMSBookImpl();
-}
+<portlet:actionURL var="updateBookURL" name="<%=LibraryConstants.ACTION_UPDATE_BOOK%>">
+	<portlet:param name="redirectURL" value="${param.backURL}" />
+</portlet:actionURL>
 
-String backURL = ParamUtil.getString(request, "backURL");
-
-PortletURL successURL = renderResponse.createRenderURL();
-successURL.setParameter("jspPage", bookId > 0L ? LibraryConstants.PAGE_BOOK_LIST : LibraryConstants.PAGE_DEFAULT);
-
-PortletURL updateBookURL = renderResponse.createActionURL();
-updateBookURL.setParameter(ActionRequest.ACTION_NAME, LibraryConstants.ACTION_UPDATE_BOOK);
-updateBookURL.setParameter("redirectURL", successURL.toString());
-%>
-
-<aui:form name="fm" method="post" action="<%=updateBookURL%>">
-	<aui:input name="bookId" type="hidden" value="<%=lmsBook.getBookId()%>" />
-	<aui:input label="book-title" name="bookTitle" value="<%=lmsBook.getBookTitle()%>">
+<aui:form name="fm" method="post" action="${updateBookURL}">
+	<aui:input name="bookId" type="hidden" value="${book.bookId}" />
+	<aui:input label="book-title" name="bookTitle" value="${book.bookTitle}">
 		<aui:validator name="required" errorMessage="The book title is required." />
 	</aui:input>
-	<aui:input label="book-author" name="author" value="<%=lmsBook.getAuthor()%>" />
+	<aui:input label="book-author" name="author" value="${book.author}" />
 	<aui:button type="submit" value="Save" />
 </aui:form>
 
-<a href="<%=backURL%>">Go Back</a>
+<a href="${param.backURL}">Go Back</a>
 
 <script>
-Liferay.Util.focusFormField(document.${ns}fm.${ns}bookTitle);
+Liferay.Util.focusFormField(document['${ns}fm']['${ns}bookTitle']);
 </script>
