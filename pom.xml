@@ -10,8 +10,6 @@
 	<packaging>pom</packaging>
 	<version>1.0.0-SNAPSHOT</version>
 
-	<name>library-portlet-mvn</name>
-
 	<properties>
 		<java-version>1.7</java-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -34,6 +32,39 @@
 
 	<dependencyManagement>
 		<dependencies>
+
+			<dependency>
+				<groupId>com.library</groupId>
+				<artifactId>library-mvn-portlet-service</artifactId>
+				<version>${pom.version}</version>
+			</dependency>
+
+			<!-- Liferay -->
+
+			<dependency>
+				<groupId>com.liferay.portal</groupId>
+				<artifactId>portal-service</artifactId>
+				<version>${liferay.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.liferay.portal</groupId>
+				<artifactId>util-bridges</artifactId>
+				<version>${liferay.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.liferay.portal</groupId>
+				<artifactId>util-taglib</artifactId>
+				<version>${liferay.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.liferay.portal</groupId>
+				<artifactId>util-java</artifactId>
+				<version>${liferay.version}</version>
+				<scope>provided</scope>
+			</dependency>
 
 			<dependency>
 				<groupId>commons-beanutils</groupId>
@@ -104,7 +135,7 @@
 						<appServerLibGlobalDir>${liferay.app.server.lib.global.dir}</appServerLibGlobalDir>
 						<appServerPortalDir>${liferay.app.server.portal.dir}</appServerPortalDir>
 						<liferayVersion>${liferay.version}</liferayVersion>
-						<pluginName>library-portlet-mvn-portlet</pluginName>
+						<pluginName>library-mvn-portlet</pluginName>
 						<pluginType>portlet</pluginType>
 					</configuration>
 				</plugin>

@@ -14,39 +14,28 @@
 	<artifactId>library-mvn-portlet</artifactId>
 	<packaging>war</packaging>
 
-	<name>library-mvn-portlet</name>
-
 	<dependencies>
 
 		<dependency>
 			<groupId>com.library</groupId>
 			<artifactId>library-mvn-portlet-service</artifactId>
-			<version>${pom.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.liferay.portal</groupId>
 			<artifactId>portal-service</artifactId>
-			<version>${liferay.version}</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.liferay.portal</groupId>
 			<artifactId>util-bridges</artifactId>
-			<version>${liferay.version}</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.liferay.portal</groupId>
 			<artifactId>util-taglib</artifactId>
-			<version>${liferay.version}</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.liferay.portal</groupId>
 			<artifactId>util-java</artifactId>
-			<version>${liferay.version}</version>
-			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -94,7 +83,6 @@
 			<plugin>
 				<groupId>com.liferay.maven.plugins</groupId>
 				<artifactId>liferay-maven-plugin</artifactId>
-				<version>${liferay.maven.plugin.version}</version>
 				<executions>
 					<execution>
 						<phase>generate-sources</phase>
