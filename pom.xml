@@ -5,8 +5,8 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.library</groupId>
-	<artifactId>library-mvn</artifactId>
+	<groupId>org.example</groupId>
+	<artifactId>liferay</artifactId>
 	<packaging>pom</packaging>
 	<version>1.0.0-SNAPSHOT</version>
 
@@ -26,21 +26,28 @@
 	</properties>
 
 	<modules>
-		<module>library-mvn-portlet</module>
-		<module>library-mvn-portlet-service</module>
+		<module>example-theme</module>
+		<module>library-portlet</module>
+		<module>library-portlet-service</module>
 	</modules>
 
 	<dependencyManagement>
 		<dependencies>
 
 			<dependency>
-				<groupId>com.library</groupId>
-				<artifactId>library-mvn-portlet-service</artifactId>
-				<version>${pom.version}</version>
+				<groupId>org.example</groupId>
+				<artifactId>library-portlet-service</artifactId>
+				<version>${project.version}</version>
 			</dependency>
 
 			<!-- Liferay -->
 
+			<dependency>
+				<groupId>com.liferay.portal</groupId>
+				<artifactId>portal-impl</artifactId>
+				<version>${liferay.version}</version>
+				<scope>provided</scope>
+			</dependency>
 			<dependency>
 				<groupId>com.liferay.portal</groupId>
 				<artifactId>portal-service</artifactId>
@@ -135,8 +142,6 @@
 						<appServerLibGlobalDir>${liferay.app.server.lib.global.dir}</appServerLibGlobalDir>
 						<appServerPortalDir>${liferay.app.server.portal.dir}</appServerPortalDir>
 						<liferayVersion>${liferay.version}</liferayVersion>
-						<pluginName>library-mvn-portlet</pluginName>
-						<pluginType>portlet</pluginType>
 					</configuration>
 				</plugin>
 				<plugin>
