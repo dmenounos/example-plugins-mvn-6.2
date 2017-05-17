@@ -18,14 +18,11 @@ public class TestCKEditorPortlet extends MVCPortlet {
 	public void submitPage(ActionRequest actionRequest, ActionResponse actionResponse)
 		throws PortletException, IOException {
 
-		String pageContent1 = ParamUtil.getString(actionRequest, TestCKEditorConstants.PAGE_CONTENT1_ATTR);
-		String pageContent2 = ParamUtil.getString(actionRequest, TestCKEditorConstants.PAGE_CONTENT2_ATTR);
+		String pageContent = ParamUtil.getString(actionRequest, TestCKEditorConstants.PAGE_CONTENT_ATTR);
 
-		System.out.println("pageContent1: " + pageContent1);
-		System.out.println("pageContent2: " + pageContent2);
+		System.out.println("pageContent: " + pageContent);
 
-		actionRequest.setAttribute(TestCKEditorConstants.PAGE_CONTENT1_ATTR, pageContent1);
-		actionRequest.setAttribute(TestCKEditorConstants.PAGE_CONTENT2_ATTR, pageContent2);
+		actionRequest.setAttribute(TestCKEditorConstants.PAGE_CONTENT_ATTR, pageContent);
 	}
 
 	public void submitPopup(ActionRequest actionRequest, ActionResponse actionResponse)

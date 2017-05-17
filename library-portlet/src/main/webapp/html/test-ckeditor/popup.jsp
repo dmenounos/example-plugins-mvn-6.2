@@ -13,11 +13,7 @@
 </aui:form>
 
 <script>
-//window['_testckeditor_WAR_libraryportlet_popupContent'];
-//CKEDITOR.instances['_testckeditor_WAR_libraryportlet_popupContent'];
-
 function <portlet:namespace />initPopupEditor() {
 	return "Popup content ...";
-	alert('lala');
 }
 </script>

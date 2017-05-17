@@ -10,11 +10,7 @@
 
 <aui:form action="${submitPageURL}">
 
-	<liferay-ui:input-editor name="pageContent1" initMethod="initPageEditor" resizable="true"
-		editorImpl="<%=TestCKEditorConstants.EDITOR_WYSIWYG_IMPL_KEY%>"
-		toolbarSet="<%=TestCKEditorConstants.EDITOR_TOOLBAR_SET%>" />
-
-	<liferay-ui:input-editor name="pageContent2" initMethod="initPageEditor" resizable="true"
+	<liferay-ui:input-editor name="pageContent" initMethod="initPageEditor" resizable="true"
 		editorImpl="<%=TestCKEditorConstants.EDITOR_WYSIWYG_IMPL_KEY%>"
 		toolbarSet="<%=TestCKEditorConstants.EDITOR_TOOLBAR_SET%>" />
 
@@ -22,8 +18,6 @@
 	<aui:button type="button" value="Open popup" cssClass="popup-button" />
 
 </aui:form>
-
-<div id="test"></div>
 
 <script>
 function <portlet:namespace />initPageEditor() {
