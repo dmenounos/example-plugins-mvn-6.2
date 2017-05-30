@@ -26,7 +26,6 @@
 	</properties>
 
 	<modules>
-		<module>example-theme</module>
 		<module>library-portlet</module>
 		<module>library-portlet-service</module>
 	</modules>
